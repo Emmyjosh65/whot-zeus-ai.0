@@ -1,36 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WHOT ZEUS AI</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zeus WHOT-AI</title>
+
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <div class="game">
-    <h1>WHOT ZEUS AI</h1>
+  <!-- LOADING SCREEN -->
+  <div id="loadingScreen">
+    <h1>ZEUS WHOT-AI</h1>
+    <p>Loading Cards...</p>
+  </div>
 
-    <div class="top">
-      <div>
-        <h3>ZEUS AI</h3>
-        <div id="aiCards" class="cards"></div>
+  <!-- MAIN GAME -->
+  <div id="gameContainer" class="hidden">
+
+    <!-- TOP BAR -->
+    <header class="top-bar">
+      <div class="logo">
+        ZEUS WHOT-AI
       </div>
 
-      <div class="center">
-        <div id="pile" class="pile"></div>
-        <button id="draw">DRAW</button>
-        <p id="msg"></p>
+      <div class="game-info">
+        <span id="turnIndicator">Your Turn</span>
+      </div>
+    </header>
+
+    <!-- GAME BOARD -->
+    <main class="board">
+
+      <!-- ZEUS AI AREA -->
+      <section class="opponent-area">
+
+        <div class="player-title">
+          ZEUS WHOT-AI
+        </div>
+
+        <div id="zeusCardCount" class="card-count">
+          Cards: 5
+        </div>
+
+        <div id="zeusHand" class="hand opponent-hand">
+        </div>
+
+      </section>
+
+      <!-- CENTER AREA -->
+      <section class="center-area">
+
+        <div class="market-area">
+
+          <div class="pile-label">
+            MARKET
+          </div>
+
+          <div id="marketPile" class="market-card">
+            🂠
+          </div>
+
+        </div>
+
+        <div class="play-area">
+
+          <div class="pile-label">
+            CURRENT CARD
+          </div>
+
+          <div id="currentCard" class="current-card">
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- PLAYER AREA -->
+      <section class="player-area">
+
+        <div class="player-title">
+          YOU
+        </div>
+
+        <div id="playerHand" class="hand">
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- CONTROLS -->
+    <section class="controls">
+
+      <button id="drawBtn">
+        Draw From Market
+      </button>
+
+      <button id="newGameBtn">
+        New Game
+      </button>
+
+    </section>
+
+    <!-- MESSAGE BOX -->
+    <section class="message-section">
+
+      <div id="messageBox">
+        Welcome to Zeus WHOT-AI
       </div>
 
-      <div>
-        <h3>YOU</h3>
-        <div id="playerCards" class="cards"></div>
+    </section>
+
+    <!-- SCOREBOARD -->
+    <section class="scoreboard">
+
+      <div class="score-card">
+        <h3>You</h3>
+        <span id="playerScore">0</span>
       </div>
+
+      <div class="score-card">
+        <h3>Zeus</h3>
+        <span id="zeusScore">0</span>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- WIN MODAL -->
+  <div id="winModal" class="modal hidden">
+
+    <div class="modal-content">
+
+      <h2 id="winnerText">
+        Winner
+      </h2>
+
+      <button id="playAgainBtn">
+        Play Again
+      </button>
+
     </div>
 
   </div>
 
-  <script src="script.js"></script>
+  <!-- JAVASCRIPT FILES -->
+
+  <script src="js/cards.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/game.js"></script>
+
 </body>
 </html>
