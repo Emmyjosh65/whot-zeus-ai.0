@@ -1,157 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zeus WHOT-AI</title>
-
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeus IQ AI Whot — Premium</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- LOADING SCREEN -->
-  <div id="loadingScreen">
-    <h1>ZEUS WHOT-AI</h1>
-    <p>Loading Cards...</p>
-  </div>
+<!-- ====== LOADING SCREEN ====== -->
+<div id="loadingScreen">
+    <div class="loader-ring"></div>
+    <h1 class="glow-text">ZEUS IQ AI WHOT</h1>
+    <p class="loading-sub">Initializing Neural Engine...</p>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+</div>
 
-  <!-- MAIN GAME -->
-  <div id="gameContainer" class="hidden">
+<!-- ====== MAIN GAME ====== -->
+<div id="gameContainer" class="hidden">
 
     <!-- TOP BAR -->
     <header class="top-bar">
-      <div class="logo">
-        ZEUS WHOT-AI
-      </div>
-
-      <div class="game-info">
-        <span id="turnIndicator">Your Turn</span>
-      </div>
+        <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span>ZEUS <small>IQ</small></span>
+        </div>
+        <div class="game-stats">
+            <div class="stat-badge" id="roundDisplay">ROUND 1</div>
+            <div class="stat-badge iq-badge" id="iqDisplay">IQ: --</div>
+        </div>
+        <button class="hamburger" id="menuToggle" onclick="toggleMenu()">☰</button>
     </header>
 
-    <!-- GAME BOARD -->
-    <main class="board">
+    <!-- SIDE MENU -->
+    <nav id="sideMenu" class="side-menu hidden">
+        <div class="menu-header">
+            <h3>ZEUS AI MENU</h3>
+            <button onclick="toggleMenu()">✕</button>
+        </div>
+        <div class="menu-body">
+            <button class="menu-btn" onclick="toggleNotes()"><span>📝</span> Notes</button>
+            <button class="menu-btn" onclick="showStats()"><span>📊</span> My Stats</button>
+            <button class="menu-btn" onclick="showAbout()"><span>ℹ️</span> About</button>
+            <button class="menu-btn" onclick="contactOwner()"><span>📞</span> Contact Owner</button>
+            <button class="menu-btn reset-btn" onclick="resetGame()"><span>🔄</span> New Game</button>
+        </div>
+        <div class="menu-footer">
+            <p>👑 Owner: Zeus</p>
+            <p>📞 +234 906 760 078</p>
+        </div>
+    </nav>
 
-      <!-- ZEUS AI AREA -->
-      <section class="opponent-area">
+    <!-- ====== GAME BOARD ====== -->
+    <div class="board">
 
-        <div class="player-title">
-          ZEUS WHOT-AI
+        <!-- ZEUS SECTION -->
+        <div class="player-section opponent-section">
+            <div class="player-header">
+                <div class="player-avatar zeus-avatar">🤖</div>
+                <div class="player-info">
+                    <h2 class="player-name">Zeus AI</h2>
+                    <span class="player-title">Whot Neural Engine</span>
+                </div>
+                <div class="card-count" id="zeusCardCount">Cards: 5</div>
+            </div>
+            <div class="hand opponent-hand" id="zeusHand"></div>
         </div>
 
-        <div id="zeusCardCount" class="card-count">
-          Cards: 5
+        <!-- CENTER AREA -->
+        <div class="center-area">
+            <div class="market-area">
+                <div class="pile-label">📦 MARKET</div>
+                <div class="market-card" id="marketDeck" onclick="drawFromMarket()">
+                    <div class="card-back-design"></div>
+                </div>
+            </div>
+
+            <div class="play-area">
+                <div class="pile-label">🎯 CURRENT CARD</div>
+                <div class="current-card" id="currentCard">
+                    <span class="placeholder">?</span>
+                </div>
+            </div>
+
+            <div class="turn-indicator" id="turnIndicator">
+                <div class="turn-dot"></div>
+                <span>Your Turn</span>
+            </div>
         </div>
 
-        <div id="zeusHand" class="hand opponent-hand">
+        <!-- PLAYER SECTION -->
+        <div class="player-section">
+            <div class="player-header">
+                <div class="player-avatar">👤</div>
+                <div class="player-info">
+                    <h2 class="player-name" id="playerNameDisplay">You</h2>
+                    <span class="player-title">Challenger</span>
+                </div>
+                <div class="card-count" id="playerCardCount">Cards: 0</div>
+            </div>
+            <div class="hand" id="playerHand"></div>
         </div>
 
-      </section>
-
-      <!-- CENTER AREA -->
-      <section class="center-area">
-
-        <div class="market-area">
-
-          <div class="pile-label">
-            MARKET
-          </div>
-
-          <div id="marketPile" class="market-card">
-            🂠
-          </div>
-
+        <!-- CONTROLS -->
+        <div class="controls">
+            <button class="btn btn-primary" id="drawBtn">
+                <span>📥</span> Draw From Market
+            </button>
+            <button class="btn btn-secondary" id="newGameBtn">
+                <span>🔄</span> New Game
+            </button>
+            <button class="btn btn-accent" onclick="toggleNotes()">
+                <span>📝</span> Notes
+            </button>
         </div>
 
-        <div class="play-area">
-
-          <div class="pile-label">
-            CURRENT CARD
-          </div>
-
-          <div id="currentCard" class="current-card">
-          </div>
-
+        <!-- MESSAGE -->
+        <div class="message-section">
+            <div id="messageBox" class="message-box">
+                <span class="msg-icon">🤖</span>
+                <span>Welcome to Zeus IQ AI Whot — Test Your Skill!</span>
+            </div>
         </div>
 
-      </section>
-
-      <!-- PLAYER AREA -->
-      <section class="player-area">
-
-        <div class="player-title">
-          YOU
+        <!-- SCOREBOARD -->
+        <div class="scoreboard">
+            <div class="score-card player-score-card">
+                <h3>👤 You</h3>
+                <span id="playerScore">0</span>
+            </div>
+            <div class="score-card vs-card">
+                <h3>⚡ VS</h3>
+                <span class="vs-symbol">⚔️</span>
+            </div>
+            <div class="score-card zeus-score-card">
+                <h3>🤖 Zeus</h3>
+                <span id="zeusScore">0</span>
+            </div>
         </div>
-
-        <div id="playerHand" class="hand">
-        </div>
-
-      </section>
-
-    </main>
-
-    <!-- CONTROLS -->
-    <section class="controls">
-
-      <button id="drawBtn">
-        Draw From Market
-      </button>
-
-      <button id="newGameBtn">
-        New Game
-      </button>
-
-    </section>
-
-    <!-- MESSAGE BOX -->
-    <section class="message-section">
-
-      <div id="messageBox">
-        Welcome to Zeus WHOT-AI
-      </div>
-
-    </section>
-
-    <!-- SCOREBOARD -->
-    <section class="scoreboard">
-
-      <div class="score-card">
-        <h3>You</h3>
-        <span id="playerScore">0</span>
-      </div>
-
-      <div class="score-card">
-        <h3>Zeus</h3>
-        <span id="zeusScore">0</span>
-      </div>
-
-    </section>
-
-  </div>
-
-  <!-- WIN MODAL -->
-  <div id="winModal" class="modal hidden">
-
-    <div class="modal-content">
-
-      <h2 id="winnerText">
-        Winner
-      </h2>
-
-      <button id="playAgainBtn">
-        Play Again
-      </button>
 
     </div>
+</div>
 
-  </div>
+<!-- ====== WIN MODAL ====== -->
+<div id="winModal" class="modal hidden">
+    <div class="modal-content premium-modal">
+        <div class="trophy">🏆</div>
+        <h2 id="winnerText">Winner</h2>
+        <div class="iq-result" id="iqResult">
+            <span class="iq-label">Gaming IQ Score</span>
+            <span class="iq-value" id="iqScoreValue">0</span>
+        </div>
+        <div class="modal-stats" id="modalStats"></div>
+        <div class="modal-actions">
+            <button class="btn btn-primary" onclick="closeModal('winModal'); resetGame();">
+                Play Again
+            </button>
+            <button class="btn btn-secondary" onclick="closeModal('winModal')">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
 
-  <!-- JAVASCRIPT FILES -->
+<!-- ====== NOTES MODAL ====== -->
+<div id="notesModal" class="modal hidden">
+    <div class="modal-content premium-modal notes-modal">
+        <h2>📝 My Game Notes</h2>
+        <textarea id="notesTextArea" placeholder="Write your strategy notes here..." rows="6"></textarea>
+        <div class="modal-actions">
+            <button class="btn btn-primary" onclick="saveNotes()">💾 Save Notes</button>
+            <button class="btn btn-secondary" onclick="closeModal('notesModal')">Close</button>
+        </div>
+    </div>
+</div>
 
-  <script src="js/cards.js"></script>
-  <script src="js/ai.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/game.js"></script>
+<!-- ====== STATS MODAL ====== -->
+<div id="statsModal" class="modal hidden">
+    <div class="modal-content premium-modal">
+        <h2>📊 My Gaming Stats</h2>
+        <div id="statsContent" class="stats-content"></div>
+        <button class="btn btn-secondary" onclick="closeModal('statsModal')">Close</button>
+    </div>
+</div>
 
+<!-- ====== ABOUT MODAL ====== -->
+<div id="aboutModal" class="modal hidden">
+    <div class="modal-content premium-modal">
+        <h2>⚡ Zeus IQ AI Whot</h2>
+        <div class="about-body">
+            <p><strong>Version:</strong> 2.0 Premium</p>
+            <p><strong>Developer:</strong> Zeus</p>
+            <p><strong>Phone:</strong> +234 906 760 078</p>
+            <p><strong>Engine:</strong> Neural Whot AI v2</p>
+            <hr>
+            <p>A premium Whot card game where you challenge the Zeus AI. Every move calculates your <strong>Gaming IQ Score</strong> — the smarter your plays, the higher your IQ!</p>
+            <p><strong>Rules:</strong> Match the shape or number of the current card. Special cards: 1(Hold), 2(Pick 2), 5(Pick 3), 8(Suspend), 14(General Market), WHOT 20 (change shape). First to empty hand wins!</p>
+        </div>
+        <button class="btn btn-secondary" onclick="closeModal('aboutModal')">Close</button>
+    </div>
+</div>
+
+<script src="js/cards.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/game.js"></script>
+<script src="js/ui.js"></script>
 </body>
 </html>
